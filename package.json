@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@ant-design/colors": "^6.0.0",
+    "@ant-design/icons": "^4.7.0",
+    "@supabase/supabase-js": "^1.2.1",
+    "@supabase/ui": "^0.36.2",
+    "antd": "^4.20.7",
+    "next": "latest",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.5",
+    "swr": "1.1.2",
+    "uuid": "^8.3.2"
+  }
+}
