@@ -18,13 +18,13 @@
 # npm
 .npmrc
 
+# vs code
+/.vscode/
+
 # misc
 .DS_Store
 *.pem
 *.notes
-
-# prettier
-.prettierrc
 
 # debug
 npm-debug.log*
