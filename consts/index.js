@@ -15,7 +15,7 @@ export const MAX_WEIGHT = Object.values(WEIGHTS).reduce((acc, cur) => acc += cur
 
 export const FOOD_GROUPS = {
   '0': {
-    name: 'undefined', 
+    name: '- undefined -', 
     tagColor: '',
     weight: WEIGHTS['0'],
   },

@@ -1,14 +1,17 @@
 import { supabase } from "../../../lib/initSupabase";
 
-const updateIngredient = async (id, in_stock) => {
+const updateIngredient = async (id, opts) => {
   const now = ((new Date()).toISOString()).toLocaleString('en-US')
   const { error } = await supabase
     .from("ingredients")
-    .update({ in_stock, updated_at: now })
-    .eq('id', id);
+    .update({
+      updated_at: now,
+      ...opts,
+    })
+    .eq('id', id)
 
   if (!error) {
-    return {};
+    return {}
   }
 
   return null

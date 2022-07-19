@@ -1,14 +1,17 @@
 import { useState } from 'react';
-import { Checkbox, Table, Tag, Typography } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
+import { Button, Checkbox, Table, Tag, Typography } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 
+import EditIngredientModal from '../../components/editIngredientModal';
 import SearchIngredients from '../../components/searchIngredients';
+import Spinner from '../../components/spinner';
+
 import createIngredient from '../api/ingredients/createIngredient';
 import updateIngredient from '../api/ingredients/updateIngredient';
 import { formatIngredientsDataForTable } from '../../utils/util.ingredients';
 import { mapToArray } from '../../utils/util.common';
 import { FOOD_GROUPS } from '../../consts';
-import Spinner from '../../components/spinner';
 
 const Ingredients = ({
   ingredientsData,
@@ -17,9 +20,9 @@ const Ingredients = ({
   handleSearch,
   searchedFoods,
 }) => {
-  const [isEditingTags, setIsEditingTags] = useState(false)
+  const [selectedIngredient, setSelectedIngredient] = useState(null)
 
-  const handleEditTags = () => setIsEditingTags(!isEditingTags)
+  const tableData = formatIngredientsDataForTable({ingredientsData})
 
   const handleChange = (value, { label }) => {
     const addOrUpdateStock = async () => {
@@ -52,19 +55,38 @@ const Ingredients = ({
     addOrUpdateStock()
   }
 
-  const handleUpdate = (evt) => {
-    const updateStock = async (id, checked) => {
+  const handleUpdate = (id, updateParams, cb) => {
+    const update = async (id, updateParams, cb) => {
       if (id) {
-        const newStockState = checked
-        const updated = await updateIngredient(id, newStockState)
+        const updated = await updateIngredient(id, updateParams)
         if (updated) {
           mutateIngredients()
+        }
+        if (cb) {
+          cb()
         }
       }
     }
 
+    update(id, updateParams, cb)
+  }
+
+  const handleUpdateStock = (evt) => {
     const { id, checked } = evt.target
-    updateStock(id, checked)
+    handleUpdate(id, {in_stock: checked})
+  }
+
+  const handleOk = () => {
+    mutateIngredients()
+  }
+
+  const handleOnCancel = () => {
+    setSelectedIngredient(null)
+  }
+
+  const handleEditIngredient = (ix) => {
+    const selected = tableData[ix]
+    setSelectedIngredient(selected)
   }
 
   const columns = [
@@ -80,7 +102,7 @@ const Ingredients = ({
       onFilter: (value, record) => record.in_stock === value,
       filterMultiple: false,
       render: (_, { key, in_stock }) => (
-        <Checkbox id={key} checked={in_stock} onChange={handleUpdate}/>
+        <Checkbox id={key} checked={in_stock} onChange={handleUpdateStock}/>
       ),
     },
     { 
@@ -92,15 +114,21 @@ const Ingredients = ({
       title: 'Food group', 
       key: 'tags', 
       dataIndex: 'tags', 
-      render: (_, { tags }) => {
-        return isEditingTags ? (<div onClick={handleEditTags}>hello</div>) : (
-          <div onClick={handleEditTags}>
-            {tags.map(tagId => {
+      render: (_, { tags, tags_custom }, ix) => {
+        return (
+          <div>
+            {(tags_custom || tags).map(tagId => {
               const foodGroup = FOOD_GROUPS[tagId]
               return (
                 <Tag key={uuidv4()} color={foodGroup.tagColor}>{foodGroup.name}</Tag>
               )
             })}
+            <Button 
+              type='link'
+              icon={<EditOutlined />}
+              size='small'
+              onClick={() => handleEditIngredient(ix)}
+            />
           </div>
         )
       },
@@ -113,7 +141,7 @@ const Ingredients = ({
         Stocked items
       </Typography.Title>
       <SearchIngredients
-        onChange={handleChange} 
+        onChange={handleChange}
         onSearch={handleSearch}
         placeholder={`E.g. "lettuce", "salmon", etc`}
         searchResults={searchedFoods} 
@@ -121,11 +149,16 @@ const Ingredients = ({
       />
       <Spinner loading={!ingredientsData}>
         <Table
-          dataSource={formatIngredientsDataForTable({ingredientsData})}
+          dataSource={tableData}
           columns={columns}
           pagination={{ position: ['topLeft', 'bottomLeft'] }}
         />
       </Spinner>
+      <EditIngredientModal
+        onCancel={handleOnCancel}
+        onOk={handleOk}
+        editProps={selectedIngredient}
+      />
     </div>
   )
 }

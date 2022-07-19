@@ -59,23 +59,35 @@ const MainLayout = ({ children }) => {
                 defaultSelectedKeys={[defaultSelectedKey]}
                 selectedKeys={[selectedKey]}
                 onClick={handleSelect}
-              >
-                <Menu.Item key='main'>
-                  <Link href="/main">
-                    FMP
-                  </Link>
-                </Menu.Item>
-              </Menu>
+                items={[
+                  {
+                    key: 'main', 
+                    label: (
+                      <Link href="/main">
+                        FMP
+                      </Link>
+                    )
+                  },
+                ]}
+              />
             </Col>
             <Col>
-              <Menu mode="horizontal" overflowedIndicator={false}>
-                <Menu.Item key='user_email'>
-                  {user?.email}
-                </Menu.Item>
-                <Menu.Item key='user_logout'>
-                  <Button type="text" onClick={handleSignOut}>Log out</Button>
-                </Menu.Item>
-              </Menu>
+              <Menu 
+                mode="horizontal" 
+                overflowedIndicator={false}
+                items={[
+                  {
+                    key: 'user_email', 
+                    label: user?.email,
+                  },
+                  {
+                    key: 'user_logout', 
+                    label: (
+                      <Button type="text" onClick={handleSignOut}>Log out</Button>
+                    ),
+                  },
+                ]}
+              />
             </Col>
           </Row>
         </MainHeader>

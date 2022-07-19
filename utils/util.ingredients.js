@@ -1,19 +1,5 @@
 import { cleanUpInput } from '../utils/util.common'
 
-// export const dedupe = (list, key, lowerCase) => {
-//   const listMapByKV = list.reduce((listMap, item) => {
-//     let val = ['string', 'number'].includes(typeof item[key]) ? item[key]?.toString() : '';
-//     if (lowerCase) {
-//       val = val?.toLowerCase();
-//     }
-//     if (val && !listMap.hasOwnProperty(val)) {
-//       listMap[val] = item;
-//     }
-//     return listMap;
-//   }, {});
-//   return Object.values(listMapByKV);
-// };
-
 export const splitIngredients = (data) => {
   const inStock = []
   const notInStock = []
@@ -113,5 +99,6 @@ export const formatIngredientsDataForTable = ({
     name: ing.name,
     in_stock: ing.in_stock,
     tags: ing.tags || [],
+    tags_custom: ing.tags_custom,
   }))
 }
