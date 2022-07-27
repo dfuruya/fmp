@@ -99,7 +99,7 @@ const Ingredients = ({
         { text: 'Yes', value: true },
         { text: 'No', value: false },
       ],
-      onFilter: (value, record) => record.in_stock === value,
+      onFilter: (value, { in_stock }) => in_stock === value,
       filterMultiple: false,
       render: (_, { key, in_stock }) => (
         <Checkbox id={key} checked={in_stock} onChange={handleUpdateStock}/>
@@ -114,7 +114,7 @@ const Ingredients = ({
       title: 'Food group', 
       key: 'tags', 
       dataIndex: 'tags', 
-      render: (_, { tags, tags_custom }, ix) => {
+      render: (_, { tags, tags_custom }) => {
         return (
           <div>
             {(tags_custom || tags).map(tagId => {
@@ -123,13 +123,23 @@ const Ingredients = ({
                 <Tag key={uuidv4()} color={foodGroup.tagColor}>{foodGroup.name}</Tag>
               )
             })}
-            <Button 
-              type='link'
-              icon={<EditOutlined />}
-              size='small'
-              onClick={() => handleEditIngredient(ix)}
-            />
           </div>
+        )
+      },
+    },
+    { 
+      title: 'Edit', 
+      key: 'row_actions', 
+      dataIndex: 'row_actions',
+      width: 60, 
+      render: (_, record, ix) => {
+        return (
+          <Button 
+            type='link'
+            icon={<EditOutlined />}
+            size='small'
+            onClick={() => handleEditIngredient(ix)}
+          />
         )
       },
     },

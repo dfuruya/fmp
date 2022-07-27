@@ -155,8 +155,8 @@ const Meals = ({
       ),
     },
     {
-      title: 'Action',
-      key: 'action',
+      title: 'Actions',
+      key: 'row_actions',
       width: 100,
       render: (_, { key }) => (
         <Space size="small">
