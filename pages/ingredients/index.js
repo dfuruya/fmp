@@ -114,6 +114,7 @@ const Ingredients = ({
       title: 'Food group', 
       key: 'tags', 
       dataIndex: 'tags', 
+      responsive: ['md', 'lg'], 
       render: (_, { tags, tags_custom }) => {
         return (
           <div>

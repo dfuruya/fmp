@@ -8,10 +8,6 @@ import "antd/dist/antd.css"
 import { useAuth } from '../contexts/authProvider'
 import styled from "styled-components"
 
-const LayoutContainer = styled(Layout)`
-  height: 100%;
-`
-
 const MainHeader = styled(Header)`
   background-color: white;
 `
@@ -48,7 +44,7 @@ const MainLayout = ({ children }) => {
   }, [user])
 
   return (
-    <LayoutContainer className="layout">
+    <Layout className="layout">
       {user && 
         <MainHeader className="header">
           <Row justify="space-between">
@@ -77,10 +73,6 @@ const MainLayout = ({ children }) => {
                 overflowedIndicator={false}
                 items={[
                   {
-                    key: 'user_email', 
-                    label: user?.email,
-                  },
-                  {
                     key: 'user_logout', 
                     label: (
                       <Button type="text" onClick={handleSignOut}>Log out</Button>
@@ -96,7 +88,7 @@ const MainLayout = ({ children }) => {
         {children}
       </LayoutContent>
       <Footer style={{ textAlign: 'center' }}>Meal Planner ©2022 Created by Shinji Furuya</Footer>
-    </LayoutContainer>
+    </Layout>
   )
 }
 

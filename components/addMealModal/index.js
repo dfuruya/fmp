@@ -19,14 +19,6 @@ const FieldForm = styled(Form)`
   flex-basis: 100%;
 `
 
-const MealIngredients = styled.div`
-  flex-basis: 50%;
-`
-
-const IngredientsListHeader = styled.div`
-  margin-bottom: 16px;
-`
-
 const baseFields = {
   id: '',
   name: '',
@@ -166,7 +158,7 @@ const AddMealModal = ({
   return (
     <Modal
       title={`${recipeAction} recipe`} 
-      width={'70%'}
+      width={'90%'}
       visible={visible} 
       onOk={handleOk} 
       onCancel={onCancel}
@@ -221,6 +213,13 @@ const AddMealModal = ({
             />
           </Form.Item>
 
+          <div className="add-meals-modal-added">
+            {(fields.ingredients || []).map((added, idx) => {
+              const name = idMap.id[added]?.name
+              return <Tag closable key={added} onClose={() => handleDeleteTag(idx)}>{name}</Tag>
+            })}
+          </div>
+
           <Form.Item
             label="Description"
             name="description"
@@ -231,17 +230,6 @@ const AddMealModal = ({
             />
           </Form.Item>
         </FieldForm>
-        <MealIngredients>
-          <IngredientsListHeader>
-            Ingredients list:
-          </IngredientsListHeader>
-          <div>
-            {(fields.ingredients || []).map((added, idx) => {
-              const name = idMap.id[added]?.name
-              return <Tag closable key={added} onClose={() => handleDeleteTag(idx)}>{name}</Tag>
-            })}
-          </div>
-        </MealIngredients>
       </ModalColumns>
     </Modal>
   )

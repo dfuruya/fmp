@@ -2,3 +2,32 @@ body {
   background: #3d3d3d;
   font-family: Helvetica, Arial, Sans-Serif;
 }
+
+.main-section {
+  display: flex;
+  flex-direction: column;
+  column-gap: 24px;
+}
+
+.main-section-divider {
+  border-top: 1px solid #d5d5d5;
+  margin-bottom: 24px;
+}
+
+.add-meals-modal-added {
+  margin-bottom: 24px;
+}
+
+@media (min-width: 992px) {
+  .main-section {
+    flex-direction: row;
+  }
+
+  .main-section-divider {
+    border-left: 1px solid #d5d5d5;
+  }  
+
+  .add-meals-modal-added {
+    margin-left: calc(100% / 3);
+  }
+}

@@ -9,17 +9,8 @@ import Meals from "../meals"
 import useDebounce from "../../hooks/useDebounce"
 import { searchIngredients } from "../api/_external/searchIngredients"
 
-const Cols = styled.div`
-  display: flex;
-  column-gap: 24px;
-`
-
 const Column = styled.div`
   flex-basis: ${props => props.percent}%;
-`
-
-const Divider = styled.div`
-  border-left: 1px solid #d5d5d5;
 `
 
 const Main = () => {
@@ -69,7 +60,7 @@ const Main = () => {
   }, [debouncedText]);
 
   return (
-    <Cols>
+    <div className="main-section">
       <Column percent={30}>
         <Ingredients 
           ingredientsData={ingredientsData} 
@@ -79,7 +70,7 @@ const Main = () => {
           searchedFoods={searchedFoods}
         />
       </Column>
-      <Divider />
+      <div className="main-section-divider" />
       <Column percent={70}>
         <Meals 
           ingredientsData={ingredientsData} 
@@ -89,7 +80,7 @@ const Main = () => {
           searchedFoods={searchedFoods}
         />
       </Column>
-    </Cols>
+    </div>
   )
 }
 

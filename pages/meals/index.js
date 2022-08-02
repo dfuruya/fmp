@@ -126,6 +126,7 @@ const Meals = ({
       title: 'Tags', 
       key: 'tags', 
       dataIndex: 'tags', 
+      responsive: ['md', 'lg'], 
       render: (_, { tags }) => (
         <>
           {tags.map(tagId => {
@@ -141,6 +142,7 @@ const Meals = ({
       title: 'Ingredients', 
       key: 'ingredients', 
       dataIndex: 'ingredients', 
+      responsive: ['md', 'lg'], 
       render: (_, { ingredients }) => (
         <>
           {ingredients.map(ing => {
@@ -174,14 +176,16 @@ const Meals = ({
   return (
     <div>
       <PageTitle>
-        Recipes&nbsp;
+        <div>
+          Recipes&nbsp;
+        </div>
         <Button
           type="primary" 
           icon={<PlusCircleTwoTone />} 
           size={'large'}
           onClick={showAddMealModal}
         >
-          Add a recipe
+          Add
         </Button>
       </PageTitle>
       <Spinner loading={!mealsData}>
