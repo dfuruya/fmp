@@ -159,6 +159,8 @@ const AddMealModal = ({
     <Modal
       title={`${recipeAction} recipe`} 
       width={'90%'}
+      style={{maxWidth: 720}}
+      centered
       visible={visible} 
       onOk={handleOk} 
       onCancel={onCancel}

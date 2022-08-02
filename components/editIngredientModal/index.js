@@ -106,6 +106,8 @@ const EditIngredientModal = ({
     <Modal
       title={MODAL_TITLE}
       width={'70%'}
+      style={{maxWidth: 480}}
+      centered
       visible={editProps} 
       onOk={handleOk} 
       onCancel={onCancel}
