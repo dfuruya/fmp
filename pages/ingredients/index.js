@@ -26,7 +26,7 @@ const Ingredients = ({
 
   const handleChange = (value, { label }) => {
     const addOrUpdateStock = async () => {
-      if (!id[value]) {
+      if (!idMap.id[value]) {
         const res = searchedFoods.searchRes?.get(label)?.ndb_no === value 
           ? searchedFoods.searchRes : searchedFoods.newRes
         const [selected] = mapToArray(res || new Map())
